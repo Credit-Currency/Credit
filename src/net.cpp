@@ -371,11 +371,11 @@ bool GetMyExternalIP(CNetAddr& ipRet)
                     addrConnect = addrIP;
             }
 
-            pszGet = "GET / HTTP/1.1\n"
-                     "Host: checkip.dyndns.org\n"
-                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\n"
-                     "Connection: close\n"
-                     "\n";
+            pszGet = "GET / HTTP/1.1\r\n"
+                     "Host: checkip.dyndns.org\r\n"
+                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
+                     "Connection: close\r\n"
+                     "\r\n";
 
             pszKeyword = "Address:";
         }
@@ -390,11 +390,11 @@ bool GetMyExternalIP(CNetAddr& ipRet)
                     addrConnect = addrIP;
             }
 
-            pszGet = "GET /simple/ HTTP/1.1\n"
-                     "Host: www.showmyip.com\n"
-                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\n"
-                     "Connection: close\n"
-                     "\n";
+            pszGet = "GET /simple/ HTTP/1.1\r\n"
+                     "Host: www.showmyip.com\r\n"
+                     "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)\r\n"
+                     "Connection: close\r\n"
+                     "\r\n";
 
             pszKeyword = NULL; // Returns just IP address
         }
