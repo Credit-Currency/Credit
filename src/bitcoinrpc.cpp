@@ -2408,16 +2408,16 @@ const CRPCCommand *CRPCTable::operator[](string name) const
 string HTTPPost(const string& strMsg, const map<string,string>& mapRequestHeaders)
 {
     ostringstream s;
-    s << "POST / HTTP/1.1\r\n"
-      << "User-Agent: credit-json-rpc/" << FormatFullVersion() << "\r\n"
-      << "Host: 127.0.0.1\r\n"
-      << "Content-Type: application/json\r\n"
-      << "Content-Length: " << strMsg.size() << "\r\n"
-      << "Connection: close\r\n"
-      << "Accept: application/json\r\n";
+    s << "POST / HTTP/1.1\n"
+      << "User-Agent: credit-json-rpc/" << FormatFullVersion() << "\n"
+      << "Host: 127.0.0.1\n"
+      << "Content-Type: application/json\n"
+      << "Content-Length: " << strMsg.size() << "\n"
+      << "Connection: close\n"
+      << "Accept: application/json\n";
     BOOST_FOREACH(const PAIRTYPE(string, string)& item, mapRequestHeaders)
-        s << item.first << ": " << item.second << "\r\n";
-    s << "\r\n" << strMsg;
+        s << item.first << ": " << item.second << "\n";
+    s << "\n" << strMsg;
 
     return s.str();
 }
@@ -2438,22 +2438,22 @@ string rfc1123Time()
 static string HTTPReply(int nStatus, const string& strMsg, bool keepalive)
 {
     if (nStatus == 401)
-        return strprintf("HTTP/1.0 401 Authorization Required\r\n"
-            "Date: %s\r\n"
-            "Server: credit-json-rpc/%s\r\n"
-            "WWW-Authenticate: Basic realm=\"jsonrpc\"\r\n"
-            "Content-Type: text/html\r\n"
-            "Content-Length: 296\r\n"
-            "\r\n"
-            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\r\n"
-            "\"http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd\">\r\n"
-            "<HTML>\r\n"
-            "<HEAD>\r\n"
-            "<TITLE>Error</TITLE>\r\n"
-            "<META HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=ISO-8859-1'>\r\n"
-            "</HEAD>\r\n"
-            "<BODY><H1>401 Unauthorized.</H1></BODY>\r\n"
-            "</HTML>\r\n", rfc1123Time().c_str(), FormatFullVersion().c_str());
+        return strprintf("HTTP/1.0 401 Authorization Required\n"
+            "Date: %s\n"
+            "Server: credit-json-rpc/%s\n"
+            "WWW-Authenticate: Basic realm=\"jsonrpc\"\n"
+            "Content-Type: text/html\n"
+            "Content-Length: 296\n"
+            "\n"
+            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n"
+            "\"http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd\">\n"
+            "<HTML>\n"
+            "<HEAD>\n"
+            "<TITLE>Error</TITLE>\n"
+            "<META HTTP-EQUIV='Content-Type' CONTENT='text/html; charset=ISO-8859-1'>\n"
+            "</HEAD>\n"
+            "<BODY><H1>401 Unauthorized.</H1></BODY>\n"
+            "</HTML>\n", rfc1123Time().c_str(), FormatFullVersion().c_str());
     const char *cStatus;
          if (nStatus == 200) cStatus = "OK";
     else if (nStatus == 400) cStatus = "Bad Request";
@@ -2462,13 +2462,13 @@ static string HTTPReply(int nStatus, const string& strMsg, bool keepalive)
     else if (nStatus == 500) cStatus = "Internal Server Error";
     else cStatus = "";
     return strprintf(
-            "HTTP/1.1 %d %s\r\n"
-            "Date: %s\r\n"
-            "Connection: %s\r\n"
-            "Content-Length: %d\r\n"
-            "Content-Type: application/json\r\n"
-            "Server: credit-json-rpc/%s\r\n"
-            "\r\n"
+            "HTTP/1.1 %d %s\n"
+            "Date: %s\n"
+            "Connection: %s\n"
+            "Content-Length: %d\n"
+            "Content-Type: application/json\n"
+            "Server: credit-json-rpc/%s\n"
+            "\n"
             "%s",
         nStatus,
         cStatus,
